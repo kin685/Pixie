@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Pixie ❤️</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, sans-serif;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+overflow:hidden;
+color:white;
+text-align:center;
+}
+
+.container{
+z-index:2;
+}
+
+h1{
+font-size:3em;
+margin-bottom:10px;
+}
+
+#message{
+font-size:1.3em;
+min-height:40px;
+}
+
+button{
+padding:12px 25px;
+font-size:16px;
+border:none;
+border-radius:25px;
+background:white;
+color:#ff4d6d;
+cursor:pointer;
+transition:0.3s;
+margin:10px;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+.hidden{
+display:none;
+}
+
+/* hearts */
+
+.heart{
+position:absolute;
+color:white;
+font-size:20px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-100vh);opacity:0;}
+}
+
+/* confetti */
+
+.confetti{
+position:absolute;
+width:10px;
+height:10px;
+background:yellow;
+animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+0%{transform:translateY(-10px) rotate(0deg);}
+100%{transform:translateY(100vh) rotate(720deg);}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Hi Pixie ❤️</h1>
+
+<p id="message"></p>
+
+<button onclick="reveal()">Click for a surprise</button>
+
+<div id="question" class="hidden">
+<p>Do you like me? 😊</p>
+<button onclick="yes()">Yes 💖</button>
+<button id="noBtn" onmouseover="moveButton()">No 😅</button>
+</div>
+
+<button onclick="toggleMusic()">🎵 Music</button>
+
+</div>
+
+<audio id="music" loop>
+<source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+</audio>
+
+<script>
+
+/* typewriter effect */
+
+const text = "I made this little website just for you. Because you make my days brighter ☀️ and my code run smoother 💻❤️";
+let index = 0;
+
+function typeWriter(){
+if(index < text.length){
+document.getElementById("message").innerHTML += text.charAt(index);
+index++;
+setTimeout(typeWriter,40);
+}
+}
+
+typeWriter();
+
+/* reveal question */
+
+function reveal(){
+document.getElementById("question").classList.remove("hidden");
+}
+
+/* funny no button */
+
+function moveButton(){
+const btn = document.getElementById("noBtn");
+btn.style.position="absolute";
+btn.style.left=Math.random()*80+"vw";
+btn.style.top=Math.random()*80+"vh";
+}
+
+/* yes response */
+
+function yes(){
+alert("I knew it! You're amazing ❤️");
+confettiExplosion();
+}
+
+/* confetti animation */
+
+function confettiExplosion(){
+
+for(let i=0;i<100;i++){
+
+const confetti=document.createElement("div");
+confetti.classList.add("confetti");
+
+confetti.style.left=Math.random()*100+"vw";
+confetti.style.background=`hsl(${Math.random()*360},100%,50%)`;
+
+document.body.appendChild(confetti);
+
+setTimeout(()=>{
+confetti.remove();
+},3000);
+
+}
+
+}
+
+/* floating hearts */
+
+function createHeart(){
+
+const heart=document.createElement("div");
+heart.classList.add("heart");
+
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=Math.random()*20+10+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},6000);
+
+}
+
+setInterval(createHeart,300);
+
+/* music toggle */
+
+function toggleMusic(){
+
+const music=document.getElementById("music");
+
+if(music.paused){
+music.play();
+}else{
+music.pause();
+}
+
+}
+
+</script>
+
+</body>
+</html>
